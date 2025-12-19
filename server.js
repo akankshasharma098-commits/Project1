@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 // --- DATABASE CONNECTION ---
 // Aapka hardcoded link (Render isse direct connect karega)
-const MONGO_URL = 'mongodb+srv://admin:admin123@cluster0.xt4yjri.mongodb.net/?appName=Cluster0';
+const MONGO_URL = 'mongodb+srv://admin:admin123@cluster0.xt4yjri.mongodb.net/flipr?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGO_URL)
     .then(() => console.log('✅ Database Connected Successfully!'))
@@ -54,6 +54,7 @@ app.get('/', (req, res) => { res.send('Backend is Live!'); });
 // Render ko apna Port chahiye hota hai (process.env.PORT)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 
 
