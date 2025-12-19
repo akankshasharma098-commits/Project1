@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 // <password> mein admin123 hona chahiye
 const MONGO_URL = 'mongodb+srv://admin:admin123@cluster0.xt4yjri.mongodb.net/?appName=Cluster0';
 
-mongoose.connect('mongodb+srv://admin:admin123@cluster0.xt4yjri.mongodb.net/?appName=Cluster0')
+mongoose.connect(MONGO_URL)
     .then(() => console.log('✅ Database Connected Successfully!'))
     .catch(err => console.log('❌ Database Error:', err.message));
 
@@ -51,3 +51,4 @@ app.post('/api/subscribe', async (req, res) => { await new Subscriber(req.body).
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
