@@ -1,4 +1,4 @@
-// server.js - Final Backend (All Features)
+// server.js - Render Ready Code
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// --- APNA SAHI LINK YAHAN PASTE KAREIN ---
-// <password> mein admin123 hona chahiye
+// --- DATABASE CONNECTION ---
+// Aapka hardcoded link (Render isse direct connect karega)
 const MONGO_URL = 'mongodb+srv://admin:admin123@cluster0.xt4yjri.mongodb.net/?appName=Cluster0';
 
 mongoose.connect(MONGO_URL)
@@ -26,7 +26,6 @@ const Client = mongoose.model('Client', ClientSchema);
 const ContactSchema = new mongoose.Schema({ fullName: String, email: String, mobile: String, city: String });
 const Contact = mongoose.model('Contact', ContactSchema);
 
-// New: Newsletter Schema
 const SubscriberSchema = new mongoose.Schema({ email: String });
 const Subscriber = mongoose.model('Subscriber', SubscriberSchema);
 
@@ -44,11 +43,17 @@ app.post('/api/clients', async (req, res) => { await new Client(req.body).save()
 app.get('/api/contact', async (req, res) => { const d = await Contact.find(); res.json(d); });
 app.post('/api/contact', async (req, res) => { await new Contact(req.body).save(); res.json({msg:"Saved"}); });
 
-// New: Newsletter Routes
+// Newsletter
 app.get('/api/subscribe', async (req, res) => { const d = await Subscriber.find(); res.json(d); });
 app.post('/api/subscribe', async (req, res) => { await new Subscriber(req.body).save(); res.json({msg:"Saved"}); });
 
-const PORT = process.env.PORT || 5000;
+// Test Route (Check karne ke liye)
+app.get('/', (req, res) => { res.send('Backend is Live!'); });
 
+// --- SERVER LISTEN (Isme change kiya hai) ---
+// Render ko apna Port chahiye hota hai (process.env.PORT)
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
 
